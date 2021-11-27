@@ -18,6 +18,19 @@ There is no longer the need to wrap lambda functions in braces:
         @onclick="() => currentCount++">Click me</button>
 ```
 
+## C# Features
+
+The template now automatically enables [nullable reference types](https://blogs.u2u.be/peter/post/c-nullable-reference-types)
+and also [implicit usings](https://blogs.u2u.be/peter/post/c-10-implicit-using-and-file-scoped-namespaces)
+
+```
+<PropertyGroup>
+  <TargetFramework>net6.0</TargetFramework>
+  <Nullable>enable</Nullable>
+  <ImplicitUsings>enable</ImplicitUsings>
+</PropertyGroup>
+```
+
 
 
 

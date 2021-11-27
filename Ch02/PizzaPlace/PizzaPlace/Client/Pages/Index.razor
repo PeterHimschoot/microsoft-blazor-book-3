@@ -1,0 +1,137 @@
+﻿@page "/"
+
+<!-- Menu -->
+
+<h1>Our selection of pizzas</h1>
+
+@foreach (var pizza in State.Menu.Pizzas)
+{
+  <div class="row">
+    <div class="col">
+      @pizza.Name
+    </div>
+    <div class="col text-right">
+      @($"{pizza.Price:0.00}")
+    </div>
+    <div class="col"></div>
+    <div class="col">
+      <img src="@SpicinessImage(pizza.Spiciness)"
+         alt="@pizza.Spiciness" />
+    </div>
+    <div class="col">
+      <button class="btn btn-success pl-4 pr-4"
+            @onclick="@(() => AddToBasket(pizza))">
+        Add
+      </button>
+    </div>
+  </div>
+}
+
+<!-- End menu -->
+<!-- Shopping Basket -->
+@if (State.Basket.Orders.Any())
+{
+  <h1 class="">Your current order</h1>
+
+  @foreach (var (pizza, pos) in State.Basket.Orders.Select(
+(id, pos) => (State.Menu.GetPizza(id), pos)))
+  {
+    <div class="row mb-2">
+      <div class="col">
+        @pizza.Name
+      </div>
+      <div class="col text-right">
+        @($"{pizza.Price:0.00}")
+      </div>
+      <div class="col"></div>
+
+      <div class="col"></div>
+      <div class="col">
+        <button class="btn btn-danger"
+            @onclick="@(() => RemoveFromBasket(pos))">
+          Remove
+        </button>
+      </div>
+    </div>
+  }
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"><hr /></div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+  </div>
+
+  <div class="row">
+    <div class="col"> Total:</div>
+    <div class="col text-right font-weight-bold"> @($"{State.TotalPrice:0.00}") </div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+  </div>
+}
+
+<!-- End shopping basket -->
+<!-- Customer entry -->
+
+<h1 class="mt-2 mb-2">Please enter your details below</h1>
+
+<EditForm Model="@State.Basket.Customer"
+          OnValidSubmit="PlaceOrder">
+
+  <DataAnnotationsValidator />
+  @*    <ValidationSummary/>
+  *@
+  <fieldset>
+    @* Now using floating labels *@
+    <div class="mb-2 form-group form-floating">
+      <InputText class="form-control" id="name" placeholder="name" @bind-Value="@State.Basket.Customer.Name" />
+      <label for="name">Name:</label>
+      <ValidationMessage For="@(() => State.Basket.Customer.Name)" />
+    </div>
+    <div class="mb-2 form-group form-floating">
+      <InputText class="form-control" id="street" placeholder="street" @bind-Value="@State.Basket.Customer.Street" />
+      <label for="street">Street:</label>
+      <ValidationMessage For="@(() => State.Basket.Customer.Street)" />
+    </div>
+    <div class="mb-2 form-group form-floating">
+      <InputText class="form-control col-6" id="city" placeholder="city" @bind-Value="@State.Basket.Customer.City" />
+      <label class="col-2" for="city">City:</label>
+        <ValidationMessage For="@(() => State.Basket.Customer.City)" />
+    </div>
+    <div class="mb-2">
+      <button class="mx-auto w-25 btn btn-success" @onclick="PlaceOrder">Checkout</button>
+    </div>
+  </fieldset>
+</EditForm>
+
+<!-- End customer entry -->
+@State.ToJson()
+
+@code {
+  private State State { get; } = new State();
+
+  protected override void OnInitialized()
+  {
+    State.Menu.Add(
+      new Pizza(1, "Pepperoni", 8.99M, Spiciness.Spicy));
+    State.Menu.Add(
+      new Pizza(2, "Margarita", 7.99M, Spiciness.None));
+    State.Menu.Add(
+      new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot));
+  }
+
+  private string SpicinessImage(Spiciness spiciness)
+    => $"images/{spiciness.ToString().ToLower()}.png";
+
+  private void AddToBasket(Pizza pizza)
+  => State.Basket.Add(pizza.Id);
+
+  private void RemoveFromBasket(int pos)
+  => State.Basket.RemoveAt(pos);
+
+  private void PlaceOrder()
+  {
+    Console.WriteLine("Placing order");
+  }
+}
