@@ -1,0 +1,22 @@
+﻿@page "/counterURL/{CurrentCount:int?}"
+@inject NavigationManager navigationManager
+
+<h1>Counter in URL</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<button class="btn btn-primary"
+        @onclick="IncrementCount">
+    Click me
+</button>
+
+@code {
+
+    [Parameter]
+    public int CurrentCount { get; set; }
+
+    private void IncrementCount()
+    {
+        navigationManager.NavigateTo($"/counterURL/{CurrentCount + 1}");
+    }
+}

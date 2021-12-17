@@ -1,0 +1,41 @@
+﻿@page "/localStorage"
+@inject JSInterop.Services.ILocalStorage localStorage
+@using Microsoft.AspNetCore.Components
+
+<h1>Counter With Local Storage</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+
+    public int CurrentCount { get; set; }
+
+    private void IncrementCount()
+    {
+        CurrentCount++;
+        localStorage.SetProperty<int>(nameof(CurrentCount), CurrentCount);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await localStorage.Init();
+            await localStorage.WatchAsync(this);
+
+            int c = await localStorage.GetProperty<int>(nameof(CurrentCount));
+            CurrentCount = c;
+        }
+        catch { }
+    }
+
+    [JSInvokable]
+    public async Task UpdateCounter()
+    {
+        int c = await localStorage.GetProperty<int>(nameof(CurrentCount));
+        CurrentCount = c;
+        this.StateHasChanged();
+    }
+}

@@ -1,0 +1,11 @@
+﻿@if (cultures != null)
+{
+  <form class="form-inline">
+    <select class="form-control mr-2" @bind="Culture">
+      @foreach (var culture in cultures)
+      {
+        <option value="@culture.Key">@culture.Value</option>
+      }
+    </select>
+  </form>
+}

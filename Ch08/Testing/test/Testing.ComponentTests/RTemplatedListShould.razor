@@ -1,0 +1,116 @@
+﻿@inherits Bunit.TestContext
+
+@code {
+  [Fact]
+  public void RenderLoadingTemplateWhenItemsIsNull()
+  {
+    RenderFragment loading =@<div class="loader">Loading...</div>;
+
+	Func<ValueTask<IEnumerable<string>?>> loader =
+	  () => new ValueTask<IEnumerable<string>?>(result: null);
+
+	var cut = Render(
+	@<TemplatedList Loader="@loader">
+	  <LoadingContent>
+		<div class="loader">Loading...</div>
+	  </LoadingContent>
+	</TemplatedList>
+	);
+	cut.Find("div.loader")
+	   .MarkupMatches(loading);
+}
+
+[Fact]
+public void RenderItemsCorrectly()
+{
+  const int count = 5;
+
+  Func<ValueTask<IEnumerable<string>>> loader =
+	() => new ValueTask<IEnumerable<string>>(Enumerable.Repeat("A", count));
+
+  var cut = Render(
+	@<TemplatedList Loader="@loader">
+	  <LoadingContent>
+		Loading...
+	  </LoadingContent>
+	  <ItemContent Context="item">
+		<p>@item</p>
+	  </ItemContent>
+	</TemplatedList>
+	);
+  cut.WaitForState(() => cut.FindAll("p").Any());
+
+  var ps = cut.FindAll("p");
+  ps.Should().NotBeEmpty();
+  foreach (var p in ps)
+  {
+	p.MarkupMatches(@<p>A</p>);
+  }
+}
+
+[Fact]
+public void RenderItemsWithListItemCorrectly()
+{
+  const int count = 5;
+  Func<ValueTask<IEnumerable<string>?>> loader =
+  () => new ValueTask<IEnumerable<string>?>(Enumerable.Repeat("A", count));
+
+  var cut = Render(
+  @<TemplatedList Loader="@loader">
+	<LoadingContent>
+	  Loading...
+	</LoadingContent>
+	<ItemContent Context="item">
+	  <ListItem Item="@item" />
+	</ItemContent>
+  </TemplatedList>
+  );
+
+  cut.WaitForState(() => cut.FindAll("p").Any());
+
+  var ps = cut.FindAll("p");
+  ps.Should().NotBeEmpty();
+  foreach (var p in ps)
+  {
+	p.MarkupMatches(@<p>A</p>);
+  }
+}
+
+[Fact]
+public void RenderItemsAftersItemsLoadedAsyncCorrectly()
+{
+  const int count = 5;
+
+  var tcs = new TaskCompletionSource<IEnumerable<string>?>();
+
+  Func<ValueTask<IEnumerable<string>?>> loader =
+  () => new ValueTask<IEnumerable<string>?>(tcs.Task);
+
+  var cut = Render(
+  @<TemplatedList Loader="@loader">
+	<LoadingContent>
+	  <div class="loader">Loading...</div>
+	</LoadingContent>
+	<ItemContent Context="item">
+	  <ListItem Item="@item" />
+	</ItemContent>
+  </TemplatedList>
+  );
+  cut.Find("div.loader")
+	.MarkupMatches(@<div class="loader">Loading...</div>);
+
+  // Complete the loader task,  this should rerender the component asynchronously
+  tcs.SetResult(Enumerable.Repeat("A", count));
+
+  // Wait for rendering to complete
+  cut.WaitForState(() => cut.FindAll("p").Any());
+
+  var ps = cut.FindAll("p");
+  ps.Should().NotBeEmpty();
+  foreach (var p in ps)
+  {
+    p.MarkupMatches(@<p>A</p>);
+  }
+}
+
+}

@@ -1,0 +1,92 @@
+﻿@page "/"
+@inject IMenuService MenuService
+@inject IOrderService orderService
+@inject State State
+@inject NavigationManager NavigationManager
+
+@if (State.Menu.Pizzas.Any())
+{
+  <!-- Menu -->
+
+  <PizzaList Title="Our Selection of Pizzas"
+             Items="@State.Menu.Pizzas"
+             ButtonTitle="Order"
+             ButtonClass="btn btn-success pl-4 pr-4"
+             Selected="@AddToBasket"
+             ShowPizzaInformation="@ShowPizzaInformation" />
+
+  <!-- End menu -->
+  <!-- Shopping Basket -->
+
+  <ShoppingBasket Orders="@State.Basket.Orders"
+                  GetPizzaFromId="@State.Menu.GetPizza"
+                  Selected="@RemoveFromBasket" />
+
+  <!-- End shopping basket -->
+  <!-- Customer entry -->
+
+  <CustomerEntry Title="Please enter your details below"
+                 @bind-Customer="@State.Basket.Customer"
+                 ButtonTitle="Checkout"
+                 ButtonClass="mx-auto w-25 btn btn-success"
+                 ValidSubmit="PlaceOrder" />
+
+  <!-- End customer entry -->
+
+  <!-- Map -->
+  <div class="map">
+    <Map Zoom="17" Markers="@Markers"/>
+  </div>
+  <!-- End Map -->
+
+  @State.ToJson()
+}
+else
+{
+  <div class="mx-auto text-center mb-3 mt-3">
+    <div class="spinner-border text-danger" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}
+
+@code {
+  private List<Marker> Markers = new List<Marker> {
+    new Marker {
+      X = 4.29660,
+      Y = 50.88022,
+      Description = "Pizza Place" },
+    new Marker {
+      X = 4.27638,
+      Y = 50.87136,
+      Description = "You",
+      ShowPopup = true },
+};
+
+
+  protected override async Task OnInitializedAsync()
+  {
+    Menu menu = await MenuService.GetMenu();
+    foreach (Pizza pizza in menu.Pizzas)
+    {
+      State.Menu.Add(pizza);
+    }
+  }
+
+  private void AddToBasket(Pizza pizza)
+  => State.Basket.Add(pizza.Id);
+
+  private void RemoveFromBasket(int pos)
+  => State.Basket.RemoveAt(pos);
+
+  private async Task PlaceOrder()
+  {
+    await orderService.PlaceOrder(State.Basket);
+  }
+
+  private void ShowPizzaInformation(Pizza selected)
+  {
+    this.State.CurrentPizza = selected;
+    Task.Run(() => this.NavigationManager.NavigateTo("/pizzainfo"));
+  }
+}

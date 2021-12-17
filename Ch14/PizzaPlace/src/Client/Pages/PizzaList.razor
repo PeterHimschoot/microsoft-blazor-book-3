@@ -1,0 +1,21 @@
+﻿@inject IStringLocalizer<PizzaList> localizer
+@inject IStringLocalizer<Resources.CommonResources> commonLocalizer
+
+<ItemList Items="@Items">
+  <Loading>
+    <div class="spinner-border text-danger" role="status">
+      <span class="visually-hidden">@commonLocalizer["Loading"]</span>
+    </div>
+  </Loading>
+  <Header>
+    <h1>@Title</h1>
+  </Header>
+  <RowTemplate Context="pizza">
+    <PizzaItem Pizza="@pizza"
+               ButtonClass="@ButtonClass"
+               ButtonTitle="@ButtonTitle"
+               Selected="@Selected"
+               ShowPizzaInformation="@ShowPizzaInformation"/>
+  </RowTemplate>
+</ItemList>
+

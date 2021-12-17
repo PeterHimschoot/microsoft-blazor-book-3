@@ -1,0 +1,78 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <Grid Items="forecasts" TItem="WeatherForecast">
+    <Header>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </Header>
+    <Row Context="forecast">
+      <!-- by default called context-->
+      <td>@forecast.Date</td>
+      <td>@forecast.TemperatureC</td>
+      <td>@forecast.TemperatureF</td>
+      <td>@forecast.Summary</td>
+    </Row>
+    <Footer>
+      <td colspan="4">Spring is in the air!</td>
+    </Footer>
+  </Grid>
+
+  <ListView Items="forecasts" TItem="WeatherForecast">
+    <ItemTemplate Context="forecast">
+      <span>
+        @forecast.Summary
+      </span>
+@*      @forecastTemplate(context)
+*@    </ItemTemplate>
+  </ListView>
+
+  <ListView2 Items="forecasts">
+    <ListTemplate Context="itemTemplate">
+      <ol>
+        @itemTemplate
+      </ol>
+    </ListTemplate>
+    <ItemTemplate Context="forecast">
+      <li>@forecast.Summary</li>
+    </ItemTemplate>
+  </ListView2>
+}
+
+@code {
+
+  private RenderFragment<WeatherForecast> forecastTemplate = (forecast)
+    => @<span>@forecast.Summary</span>;
+
+  private RenderFragment Title { get; set; } = default!;
+
+  private WeatherForecast[]? forecasts;
+
+  protected override async Task OnInitializedAsync()
+  {
+    forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+  }
+
+  public class WeatherForecast
+  {
+    public DateTime Date { get; set; }
+
+    public int TemperatureC { get; set; }
+
+    public string Summary { get; set; } = string.Empty;
+
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+  }
+}

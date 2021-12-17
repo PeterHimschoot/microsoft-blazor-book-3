@@ -1,0 +1,14 @@
+﻿@using Dependency.Inversion.Shared
+
+@inject IProductsService productsService
+
+@foreach (var product in productsService.GetProducts())
+{
+  <div>@product.Name</div>
+  <div>@product.Description</div>
+  <div>@product.Price</div>
+}
+
+@code
+{
+}

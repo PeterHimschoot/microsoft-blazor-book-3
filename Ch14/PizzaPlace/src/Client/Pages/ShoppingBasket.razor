@@ -1,0 +1,31 @@
+﻿@inject IStringLocalizer<ShoppingBasket> localizer
+
+@if (Pizzas.Any())
+{
+  <ItemList Items="@Pizzas">
+    <Header>
+      <h1>@localizer["Your current order"]</h1>
+    </Header>
+    <RowTemplate Context="tuple">
+      <PizzaItem Pizza="@tuple.pizza"
+               ButtonClass="btn btn-danger"
+               ButtonTitle="@localizer["Remove"]"
+               Selected="@(() => Selected.InvokeAsync(tuple.pos))" />
+    </RowTemplate>
+    <Footer>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col"><hr /></div>
+        <div class="col"> </div>
+        <div class="col"> </div>
+      </div>
+      <div class="row">
+        <div class="col"> @localizer["Total"]:</div>
+        <div class="col text-right font-weight-bold">@($"{TotalPrice:0.00}")</div>
+        <div class="col"> </div>
+        <div class="col"> </div>
+        <div class="col"> </div>
+      </div>
+    </Footer>
+  </ItemList>
+}

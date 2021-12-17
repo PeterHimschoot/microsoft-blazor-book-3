@@ -1,0 +1,10 @@
+﻿@typeparam TItem
+
+<ul>
+  @foreach (var item in Items)
+  {
+    <li>
+      @ItemTemplate(item)
+    </li>
+  }
+</ul>

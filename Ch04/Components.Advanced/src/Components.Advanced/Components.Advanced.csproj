@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-rc.2.21480.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-rc.2.21480.10" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Components.Library\Components.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\DogComponent - Copy - Copy.razor.cs">
+      <DependentUpon>DogComponent - Copy.razor.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\DogComponent - Copy.razor.cs">
+      <DependentUpon>DogComponent.razor.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

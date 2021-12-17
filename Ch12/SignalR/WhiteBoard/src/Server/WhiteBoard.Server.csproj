@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>0d409214-0f4f-4455-8fa3-3028f8e156d6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0-preview.5.21301.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\WhiteBoard.Client.csproj" />
+    <ProjectReference Include="..\Shared\WhiteBoard.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>

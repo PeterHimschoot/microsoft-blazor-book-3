@@ -1,0 +1,10 @@
+﻿@page "/"
+@inject IStringLocalizer<Index> localizer
+
+<h1>@localizer.GetString("Hello, world!")</h1>
+<p>@localizer["Welcome to your new app."]</p>
+<p>@localizer["Current culture :"] @CultureInfo.CurrentCulture.Name</p>
+<p>Pi = @Math.PI</p>
+<p>@localizer["Today's date is"] @DateTime.Now.ToLongDateString()</p>
+
+<SurveyPrompt Title="@localizer["How is Blazor working for you?"]" />

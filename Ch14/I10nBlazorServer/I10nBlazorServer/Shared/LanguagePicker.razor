@@ -1,0 +1,16 @@
+﻿@if (cultures != null)
+{
+  <form class="form-inline">
+    <select class="form-control mr-2" @bind="selectedCulture">
+      <option>@Localizer.GetString("Select...")</option>
+      @foreach(var culture in cultures)
+      {
+        <option value="@culture.Key">@culture.Value</option>
+      }
+    </select>
+    <button class="btn btn-outline-primary" 
+      @onclick="RequestCultureChange">
+      @Localizer.GetString("Change")
+    </button>
+  </form>
+}

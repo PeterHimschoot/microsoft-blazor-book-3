@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-rc.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-rc.2.*" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0-rc.2.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leaflet.Map\Leaflet.Map.csproj" />
+    <ProjectReference Include="..\Shared\PizzaPlace.Shared.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+</Project>

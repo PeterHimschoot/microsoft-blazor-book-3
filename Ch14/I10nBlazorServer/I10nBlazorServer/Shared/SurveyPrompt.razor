@@ -1,0 +1,28 @@
+﻿@inject IStringLocalizer<SurveyPrompt> localizer
+
+<div class="alert alert-secondary mt-4">
+  <span class="oi oi-pencil mr-2" aria-hidden="true"></span>
+  <strong>@Title</strong>
+
+  <span class="text-nowrap">
+      @Prompt
+  </span>
+</div>
+
+@code {
+  // Demonstrates how a parent component can supply parameters
+  [Parameter]
+  public string Title { get; set; }
+
+  private const string anchor =
+  "<a target=\"_blank\" class=\"font-weight-bold\" href=\"https://go.microsoft.com/fwlink/?linkid=2149017\">{0}</a>";
+
+  private string Anchor
+  => string.Format(anchor, localizer["brief survey"]);
+
+  private MarkupString Prompt
+  => (MarkupString)string.Format(
+      localizer["Please take our {0} and tell us what you think."],
+      Anchor
+    );
+}

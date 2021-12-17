@@ -1,0 +1,23 @@
+@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayout> Localizer
+
+<div class="page">
+  <div class="sidebar">
+    <NavMenu />
+  </div>
+
+  <div class="main">
+    <div class="top-row px-4">
+      <span class="pr-2 ml-md-auto">
+        @Localizer["Language"]
+      </span>
+      <LanguagePicker />
+      <a href="http://blazor.net" target="_blank" class="ml-md-auto">
+        @Localizer["About"]
+      </a>
+    </div>
+    <div class="content px-4">
+      @Body
+    </div>
+  </div>
+</div>

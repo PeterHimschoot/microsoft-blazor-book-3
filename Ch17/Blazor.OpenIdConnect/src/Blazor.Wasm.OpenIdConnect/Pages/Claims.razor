@@ -1,0 +1,31 @@
+﻿@page "/claims"
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@attribute [Authorize(Roles = "admin")]
+
+<h3>Claims</h3>
+
+<h2>Hi @UserName</h2>
+
+@foreach(var claim in UserClaims)
+{
+  <p>@claim.Type - @claim.Value</p>
+}
+
+@code {
+  private IEnumerable<Claim> UserClaims { get; set; }
+  private string UserName { get; set; } = "Unknown";
+
+  protected override async Task OnInitializedAsync()
+  {
+    AuthenticationState authState = 
+      await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+    if (authState is not null)
+    {
+      UserName = authState.User.Identity.Name;
+      UserClaims = authState.User.Claims;
+    }
+  }
+}

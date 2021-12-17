@@ -1,0 +1,8 @@
+﻿<div class="alert alert-secondary mt-4" role="alert">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+}
