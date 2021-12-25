@@ -32,6 +32,10 @@
   </DismissibleAlert>
 </GrandMother>
 
+<LifeCycle Counter="@counter" />
+
+<button class="btn btn-primary" @onclick="Increment">Increment</button>
+
 @code {
   public bool ShowAlert { get; set; } = true;
 
@@ -43,4 +47,11 @@
   }
 
   private DismissibleAlert alert = default!;
+
+  private int counter = 1;
+
+  public void Increment()
+  {
+    counter += 1;
+  }
 }
