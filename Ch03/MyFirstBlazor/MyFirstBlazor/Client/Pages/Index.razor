@@ -4,6 +4,43 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+@*<Alert Show="@ShowAlert">
+  <span class="oi oi-check mr-2" aria-hidden="true"></span>
+  <strong>Blazor is so cool!</strong>
+  </Alert>*@
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@*<DismissableAlert Show="@ShowAlert">
+  <span class="oi oi-check mr-2" aria-hidden="true"></span>
+  <strong>Blazor is so cool!</strong>
+  </DismissableAlert>
+*@
+
+<DismissibleAlert @bind-Show="ShowAlert" @ref="alert">
+  <span class="oi oi-check mr-2" aria-hidden="true"></span>
+  <strong>Blazor is so cool!</strong>
+</DismissibleAlert>
+
+<button @onclick="ToggleAlert" class="btn btn-success">Toggle</button>
+
+@*<Timer TimeInSeconds="5" Tick="ToggleAlert"/>*@
+<Timer TimeInSeconds="5" Tick="() => alert!.Dismiss()" />
+
+<GrandMother>
+  <GrandChild />
+  <DismissibleAlert Show="true">
+    <GrandChild />
+  </DismissibleAlert>
+</GrandMother>
+
+@code {
+  public bool ShowAlert { get; set; } = true;
+
+  public void ToggleAlert()
+  {
+    //Console.WriteLine("*** Toggle ***");
+    ShowAlert = !ShowAlert;
+    // StateHasChanged();
+  }
+
+  private DismissibleAlert alert = default!;
+}
