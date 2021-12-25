@@ -1,0 +1,40 @@
+﻿@if (Orders is not null && Orders.Any())
+{
+  <h1 class="">Your current order</h1>
+
+  @foreach (var (pizza, pos) in Pizzas)
+  {
+    <div class="row mb-2">
+      <div class="col">
+        @pizza.Name
+      </div>
+      <div class="col text-right">
+        @($"{pizza.Price:0.00}")
+      </div>
+      <div class="col"></div>
+
+      <div class="col"></div>
+      <div class="col">
+        <button class="btn btn-danger"
+            @onclick="@(() => Selected.InvokeAsync(pos))">
+          Remove
+        </button>
+      </div>
+    </div>
+  }
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"><hr /></div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+  </div>
+
+  <div class="row">
+    <div class="col"> Total:</div>
+    <div class="col text-right font-weight-bold">@($"{TotalPrice:0.00}")</div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+    <div class="col"> </div>
+  </div>
+}
