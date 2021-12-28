@@ -1,0 +1,22 @@
+﻿@typeparam TItem
+<table border="1">
+  <thead>
+    <tr>@Header</tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Items)
+    {
+      <ErrorBoundary>
+        <ChildContent>
+          <tr>@Row(item)</tr>
+        </ChildContent>
+        <ErrorContent>
+          <div>Too cold!</div>
+        </ErrorContent>
+      </ErrorBoundary>
+    }
+  </tbody>
+  <tfoot>
+    <tr>@Footer</tr>
+  </tfoot>
+</table>

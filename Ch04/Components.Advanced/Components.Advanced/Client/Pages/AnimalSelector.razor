@@ -1,0 +1,22 @@
+﻿@using Components.Advanced.Client.Data
+
+<div class="row">
+  <div class="col-2">
+    Please select:
+  </div>
+  <div class="col-6 pl-0 pr-0">
+    <select class="form-control" @onchange="@((ChangeEventArgs e) => AnimalSelected(e.Value))">
+      @foreach (AnimalKind kind in Enum.GetValues(typeof(AnimalKind)))
+      {
+        <option value="@kind">@kind.ToString()</option>
+      }
+    </select>
+  </div>
+</div>
+
+@if (MetaData is not null)
+{
+  <div class="mt-2">
+    <DynamicComponent Type="@MetaData.Type" Parameters="@MetaData.Parameters" />
+  </div>
+}

@@ -1,0 +1,87 @@
+﻿@page "/fetchdata"
+@using Components.Advanced.Shared
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <Grid Items="forecasts">
+    <Header>
+    <th>Date</th>
+    <th>Temp. (C)</th>
+    <th>Temp. (F)</th>
+    <th>Summary</th>
+    </Header>
+    <Row Context="forecast">
+      <!-- by default called context -->
+    <td>@forecast.Date</td>
+      <td>@forecast.TemperatureC</td>
+      <td>@forecast.TemperatureF</td>
+      <td>@forecast.Summary</td>
+    </Row>
+    <Footer>
+    <td colspan="4">Spring is in the air!</td>
+    </Footer>
+  </Grid>
+
+  @*<ListView Items="forecasts">
+    <ItemTemplate>
+      @forecastTemplate(context)
+    </ItemTemplate>
+  </ListView>*@
+
+  @*<ListView2 Items="forecasts">
+    <ListTemplate Context="innerTemplate">
+      <ol>
+        @innerTemplate
+      </ol>
+    </ListTemplate>
+    <ItemTemplate Context="forecast">
+      <li>@forecast.Summary</li>
+    </ItemTemplate>
+  </ListView2>*@
+
+  @*    <table class="table">
+    <thead>
+    <tr>
+    <th>Date</th>
+    <th>Temp. (C)</th>
+    <th>Temp. (F)</th>
+    <th>Summary</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var forecast in forecasts)
+    {
+    <tr>
+    <td>@forecast.Date.ToShortDateString()</td>
+    <td>@forecast.TemperatureC</td>
+    <td>@forecast.TemperatureF</td>
+    <td>@forecast.Summary</td>
+    </tr>
+    }
+    </tbody>
+    </table>*@
+}
+
+@code {
+
+  private RenderFragment<WeatherForecast> forecastTemplate =
+      (forecast) => @<span>@forecast.Summary</span>;
+
+  private WeatherForecast[]? forecasts;
+
+  protected override async Task OnInitializedAsync()
+  {
+    forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+  }
+}
