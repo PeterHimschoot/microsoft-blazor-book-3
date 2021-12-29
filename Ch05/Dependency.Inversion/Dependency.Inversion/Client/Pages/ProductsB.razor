@@ -1,0 +1,13 @@
+﻿@using Dependency.Inversion.Shared
+
+ @foreach (var product in productsService.GetProducts())
+{
+  <div>@product.Name</div>
+  <div>@product.Description</div>
+  <div>@product.Price</div>
+}
+
+@code {
+  // New is Glue, this creates tight coupling so a bad practice
+  private ProductsService productsService = new ProductsService();
+}
