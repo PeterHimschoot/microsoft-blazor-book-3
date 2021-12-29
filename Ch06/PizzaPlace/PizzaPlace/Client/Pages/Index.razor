@@ -1,0 +1,63 @@
+﻿@page "/"
+
+@inject IMenuService MenuService
+@inject IOrderService orderService
+
+<!-- Menu -->
+
+<PizzaList Title="Our Selection of Pizzas"
+           Items="@State.Menu.Pizzas"
+           ButtonTitle="Order"
+           ButtonClass="btn btn-success pl-4 pr-4"
+           Selected="@AddToBasket" />
+
+<!-- End menu -->
+<!-- Shopping Basket -->
+
+<ShoppingBasket Orders="@State.Basket.Orders"
+                GetPizzaFromId="@State.Menu.GetPizza"
+                Selected="@RemoveFromBasket" />
+
+<!-- End shopping basket -->
+<!-- Customer entry -->
+
+<CustomerEntry Title="Please enter your details below"
+               @bind-Customer="@State.Basket.Customer"
+               ButtonTitle="Checkout"
+               ButtonClass="mx-auto w-25 btn btn-success"
+               ValidSubmit="PlaceOrder" />
+
+<!-- End customer entry -->
+@State.ToJson()
+
+@code {
+  private State State { get; } = new State();
+
+  protected override async Task OnInitializedAsync()
+  {
+    Menu menu = await MenuService.GetMenu();
+
+    foreach (Pizza pizza in menu.Pizzas)
+    {
+      State.Menu.Add(pizza);
+    }
+    //State.Menu.Add(
+    //  new Pizza(1, "Pepperoni", 8.99M, Spiciness.Spicy));
+    //State.Menu.Add(
+    //  new Pizza(2, "Margarita", 7.99M, Spiciness.None));
+    //State.Menu.Add(
+    //  new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot));
+  }
+
+  private string SpicinessImage(Spiciness spiciness)
+    => $"images/{spiciness.ToString().ToLower()}.png";
+
+  private void AddToBasket(Pizza pizza)
+  => State.Basket.Add(pizza.Id);
+
+  private void RemoveFromBasket(int pos)
+  => State.Basket.RemoveAt(pos);
+
+  private async Task PlaceOrder()
+  => await orderService.PlaceOrder(State.Basket);
+}
