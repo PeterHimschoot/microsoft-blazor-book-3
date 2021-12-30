@@ -3,18 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Server", "Testing\Server\Testing.Server.csproj", "{56DDBB91-599F-4E17-95E4-C1441F0934C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Server", "Testing\Server\Testing.Server.csproj", "{56DDBB91-599F-4E17-95E4-C1441F0934C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Client", "Testing\Client\Testing.Client.csproj", "{D4653A81-1D26-4BED-AE85-9E7775B7775D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Client", "Testing\Client\Testing.Client.csproj", "{D4653A81-1D26-4BED-AE85-9E7775B7775D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.Shared", "Testing\Shared\Testing.Shared.csproj", "{E30FE95F-31FB-46F1-BE86-E1B76CA8DD45}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.ComponentTests", "Testing.ComponentTests\Testing.ComponentTests.csproj", "{11FC724C-A68D-4D6B-B78B-C98392E954DF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{831C63A6-479E-404B-8515-E8976E06FC9E}"
-	ProjectSection(SolutionItems) = preProject
-		Remarks.md = Remarks.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Shared", "Testing\Shared\Testing.Shared.csproj", "{E30FE95F-31FB-46F1-BE86-E1B76CA8DD45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +27,6 @@ Global
 		{E30FE95F-31FB-46F1-BE86-E1B76CA8DD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E30FE95F-31FB-46F1-BE86-E1B76CA8DD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E30FE95F-31FB-46F1-BE86-E1B76CA8DD45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11FC724C-A68D-4D6B-B78B-C98392E954DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FC724C-A68D-4D6B-B78B-C98392E954DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11FC724C-A68D-4D6B-B78B-C98392E954DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11FC724C-A68D-4D6B-B78B-C98392E954DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
