@@ -1,0 +1,22 @@
+﻿@inherits Bunit.TestContext
+
+@code {
+
+  [Fact]
+  public void RenderCorrectlyWithInitialZero()
+  {
+    var cut = Render(@<Counter/>);
+    cut.Find("p")
+       .MarkupMatches(@<p role="status">Current count: 0</p>);
+  }
+
+  [Fact]
+  public void IncrementCounterWhenButtonIsClicked()
+  {
+    var cut = Render(@<Counter/>);
+    cut.Find(cssSelector: "button")
+       .Click();
+    cut.Find(cssSelector: "p")
+       .MarkupMatches(@<p role="status">Current count: 1</p>);
+  }
+}
