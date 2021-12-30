@@ -6,5 +6,9 @@ This file uses [Markdown](https://www.wikipedia.org/wiki/Markdown)
 
 The project already uses nullable reference types so ignore Listing 8-1.
 
+## Testing Counter
+
+Be careful, the `Counter` component now has some additional attributes.
+
 
 

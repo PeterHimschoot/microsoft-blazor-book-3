@@ -12,7 +12,7 @@ namespace Testing.ComponentTests
       // Arrange
       var sut = new Utils();
       // Act
-      var actual = sut.Square(3);
+      int actual = sut.Square(3);
       // Assert
       Assert.Equal(expected: 9, actual: actual);
     }
@@ -26,7 +26,7 @@ namespace Testing.ComponentTests
       // Arrange
       var sut = new Utils();
       // Act
-      var actual = sut.Square(number);
+      int actual = sut.Square(number);
       // Assert
       Assert.Equal(expected: square, actual: actual);
     }
