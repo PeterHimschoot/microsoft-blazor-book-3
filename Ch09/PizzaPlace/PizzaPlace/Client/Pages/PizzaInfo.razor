@@ -1,0 +1,19 @@
+﻿@page "/PizzaInfo"
+<h2>Pizza @CurrentPizza.Name Details</h2>
+<div class="row">
+  <div class="col">
+    @CurrentPizza.Name
+  </div>
+  <div class="col">
+    @CurrentPizza.Price
+  </div>
+  <div class="col">
+    <img src="@SpicinessImage(CurrentPizza.Spiciness)"
+         alt="@CurrentPizza.Spiciness" />
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <a class="btn btn-primary" href="/">Back to Menu</a>
+  </div>
+</div>

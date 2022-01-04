@@ -1,0 +1,37 @@
+﻿@using System.Reflection
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+
+@inject LazyAssemblyLoader assemblyLoader
+
+<Router AppAssembly="@typeof(App).Assembly"
+        AdditionalAssemblies="@additionalAssemblies"
+        OnNavigateAsync="OnNavigate">
+  <Found Context="routeData">
+    <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+  </Found>
+  <NotFound>
+    <PageTitle>Not found</PageTitle>
+    <LayoutView Layout="@typeof(MainLayout)">
+      <p role="alert">Sorry, there's nothing at this address.</p>
+    </LayoutView>
+  </NotFound>
+  <Navigating>
+    Loading additional components...
+  </Navigating>
+</Router>
+
+@code {
+  private List<Assembly> additionalAssemblies =
+       new List<Assembly> { /* typeof(Counter).Assembly */ };
+
+  private async Task OnNavigate(NavigationContext context)
+  {
+    if (context.Path == "counter"  || context.Path == "fetchdata")
+    {
+      var assembliesToLoad = new List<string> { "LazyLoading.Library.dll" };
+      var assemblies = await assemblyLoader.LoadAssembliesAsync(assembliesToLoad);
+      additionalAssemblies.AddRange(assemblies);
+    }
+  }
+}

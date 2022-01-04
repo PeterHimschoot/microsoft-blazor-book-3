@@ -1,0 +1,32 @@
+﻿@page "/counter"
+@page "/counter/{currentCount:int?}"
+@layout MainLayoutRight
+
+@inject NavigationManager navigationManager
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @CurrentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<a class="btn btn-primary" href="/">Home</a>
+
+<button class="btn btn-primary" @onclick="StartFrom50">Start from 50</button>
+
+@code {
+  [Parameter]
+  public int CurrentCount { get; set; }
+
+  private void IncrementCount()
+  {
+    CurrentCount++;
+  }
+
+  private void StartFrom50()
+  {
+    navigationManager.NavigateTo("/counter/50");
+  }
+}
