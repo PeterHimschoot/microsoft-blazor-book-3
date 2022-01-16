@@ -1,0 +1,12 @@
+﻿<ItemList Items="@Items">
+  <Header>
+    <h1>@Title</h1>
+  </Header>
+  <RowTemplate Context="pizza">
+    <PizzaItem Pizza="@pizza"
+               ButtonClass="@ButtonClass"
+               ButtonTitle="@ButtonTitle"
+               Selected="@Selected"
+               ShowPizzaInformation="@ShowPizzaInformation"/>
+  </RowTemplate>
+</ItemList>
