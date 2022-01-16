@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Components
+
+@page "/counter"
+@inject JSInterop.Services.ILocalStorage localStorage
+
+@*
+  @inject IJSRuntime js
+*@
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @CurrentCount</p>
+
+<div>
+  <input @ref="inputElement" @bind="@CurrentCount" />
+</div>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+  private int currentCount = 0;
+
+  private ElementReference inputElement = default!;
+
+  //public int CurrentCount
+  //{
+  //  get => currentCount;
+  //  set
+  //  {
+  //    if (currentCount != value)
+  //    {
+  //      currentCount = value;
+  //      js.InvokeVoidAsync("blazorLocalStorage.set", nameof(CurrentCount), currentCount);
+  //    }
+  //  }
+  //}
+
+  public int CurrentCount
+  {
+    get => currentCount;
+    set
+    {
+      if (currentCount != value)
+      {
+        currentCount = value;
+        localStorage.SetProperty<int>(nameof(CurrentCount), currentCount);
+      }
+    }
+  }
+
+  private void IncrementCount()
+  {
+    // Please make sure you use the property here
+    CurrentCount++;
+  }
+
+  //protected override async Task OnInitializedAsync()
+  //{
+  //  try
+  //  {
+  //    int c = await js.InvokeAsync<int>("blazorLocalStorage.get", nameof(CurrentCount));
+  //    currentCount = c;
+  //  }
+  //  catch { }
+  //}
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      await localStorage.Init();
+      await localStorage.WatchAsync(this);
+      int c = await localStorage.GetProperty<int>(nameof(CurrentCount));
+      currentCount = c;
+    }
+    catch { }
+  }
+
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      await inputElement.FocusAsync();
+    }
+  }
+
+  //protected override async Task OnAfterRenderAsync(bool firstRender)
+  //{
+  //  if (inputElement is not null)
+  //  {
+  //    await js.InvokeVoidAsync("blazorFocus.set", inputElement);
+  //  }
+  //  if (firstRender)
+  //  {
+  //    // We only need to create the subscription once
+  //    var objRef = DotNetObjectReference.Create(this);
+  //    await js.InvokeVoidAsync("blazorLocalStorage.watch", objRef);
+  //  }
+  //}
+
+  //[JSInvokable]
+  //public async Task UpdateCounter()
+  //{
+  //  int c = await js.InvokeAsync<int>("blazorLocalStorage.get", nameof(CurrentCount));
+  //  currentCount = c;
+  //  this.StateHasChanged();
+  //}
+
+  [JSInvokable]
+  public async Task UpdateCounter()
+  {
+    int c = await localStorage.GetProperty<int>(nameof(CurrentCount));
+    currentCount = c;
+    this.StateHasChanged();
+  }
+}
