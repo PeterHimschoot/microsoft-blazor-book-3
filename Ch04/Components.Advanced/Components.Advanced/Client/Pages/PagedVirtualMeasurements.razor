@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <Virtualize ItemsProvider="@LoadMeasurements" ItemSize="25" Context="measurement">
+    <Virtualize ItemsProvider="@LoadMeasurements" ItemSize="25" Context="measurement" OverscanCount="20">
       <ItemContent>
         <tr>
           <td>@measurement.Guid.ToString()</td>
