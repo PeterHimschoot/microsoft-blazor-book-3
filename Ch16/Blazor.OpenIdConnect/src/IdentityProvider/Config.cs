@@ -26,6 +26,8 @@ namespace IdentityProvider
           new Claim("given_name", "Peter"),
           new Claim(JwtClaimTypes.Name, "Peter Himschoot"),
           new Claim("family_name", "Himschoot"),
+          new Claim("address", "Melle"),
+          new Claim("role", "admin"),
         }
       },
       new TestUser
@@ -38,6 +40,8 @@ namespace IdentityProvider
           new Claim("given_name", "Student"),
           new Claim(JwtClaimTypes.Name, "Student Blazor"),
           new Claim("family_name", "Blazor"),
+          new Claim("address", "Zellik"),
+          new Claim("role", "tester"),
         }
       }
     };
@@ -47,6 +51,10 @@ namespace IdentityProvider
     {
       new IdentityResources.OpenId(),
       new IdentityResources.Profile(),
+      new IdentityResources.Address(),
+      new IdentityResource(name: "roles",
+        displayName: "User role(s)",
+        userClaims: new List<string> { "role" }),
     };
 
     public static IEnumerable<Client> GetClients()
@@ -58,15 +66,23 @@ namespace IdentityProvider
         ClientId = "BlazorServer",
         AllowedGrantTypes = GrantTypes.Hybrid,
         RedirectUris = new List<string>{
+          // The port number should correspond to the Blazor.Server.OpenIdConnect project
+          // which you can find in launchSettings.json
           "https://localhost:5001/signin-oidc"
         },
         RequirePkce = false,
         AllowedScopes = {
           IdentityServerConstants.StandardScopes.OpenId,
-          IdentityServerConstants.StandardScopes.Profile
+          IdentityServerConstants.StandardScopes.Profile,
+          IdentityServerConstants.StandardScopes.Address,
+          "roles"
         },
         ClientSecrets = { new Secret("u2u-secret".Sha512()) },
-        RequireConsent = true
+        RequireConsent = true,
+        PostLogoutRedirectUris = new List<string>
+        {
+          "https://localhost:5001/signout-callback-oidc"
+        }
       }
     };
   }

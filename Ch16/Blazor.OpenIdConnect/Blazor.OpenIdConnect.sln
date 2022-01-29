@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61F1ADBB-C7A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "src\IdentityProvider\IdentityProvider.csproj", "{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Server.OpenIdConnect", "src\Blazor.Server.OpenIdConnect\Blazor.Server.OpenIdConnect.csproj", "{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,17 @@ Global
 		{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
+		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC05602D-9485-4C0B-B678-159DFA4DD7FE}
