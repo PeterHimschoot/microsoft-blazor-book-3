@@ -2,8 +2,12 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace IdentityProvider
 {
@@ -22,10 +26,6 @@ namespace IdentityProvider
           new Claim("given_name", "Peter"),
           new Claim(JwtClaimTypes.Name, "Peter Himschoot"),
           new Claim("family_name", "Himschoot"),
-          new Claim("address", "Melle"),
-          new Claim("role", "admin"),
-          //new Claim("role", "developer"),
-          new Claim("country", "Belgium"),
         }
       },
       new TestUser
@@ -38,11 +38,7 @@ namespace IdentityProvider
           new Claim("given_name", "Student"),
           new Claim(JwtClaimTypes.Name, "Student Blazor"),
           new Claim("family_name", "Blazor"),
-          new Claim("address", "Zellik"),
-          //new Claim("role", "user"),
-          new Claim("role", "tester"),
-          new Claim("country", "France"),
-       }
+        }
       }
     };
 
@@ -51,13 +47,6 @@ namespace IdentityProvider
     {
       new IdentityResources.OpenId(),
       new IdentityResources.Profile(),
-      new IdentityResources.Address(),
-      new IdentityResource(name: "roles",
-        displayName: "User role(s)",
-        userClaims: new List<string> { "role" }),
-      new IdentityResource(name: "country",
-        displayName: "User country",
-        userClaims: new List<string> { "country" })
     };
 
     public static IEnumerable<Client> GetClients()
@@ -74,37 +63,11 @@ namespace IdentityProvider
         RequirePkce = false,
         AllowedScopes = {
           IdentityServerConstants.StandardScopes.OpenId,
-          IdentityServerConstants.StandardScopes.Profile,
-          IdentityServerConstants.StandardScopes.Address,
-          "roles",
-          "u2uApi",
-          "country"
+          IdentityServerConstants.StandardScopes.Profile
         },
         ClientSecrets = { new Secret("u2u-secret".Sha512()) },
-        RequireConsent = true,
-        PostLogoutRedirectUris = new List<string>
-        {
-          "https://localhost:5001/signout-callback-oidc"
-        }
+        RequireConsent = true
       }
     };
-
-    public static IEnumerable<ApiScope> GetApiScopes()
-      => new List<ApiScope>
-      {
-        new ApiScope("u2uApi", "U2U API")
-      };
-
-    public static IEnumerable<ApiResource> GetApiResources()
-      => new List<ApiResource>
-      {
-        new ApiResource("u2uApi", "U2U API")
-        {
-            // To use user's country claim we need to add it here
-            Scopes = { "u2uApi" }, UserClaims = new [] { "country"}
-        },
-        //new ApiResource("country", "User country",
-        //  new [] { "country"})
-      };
   }
 }
