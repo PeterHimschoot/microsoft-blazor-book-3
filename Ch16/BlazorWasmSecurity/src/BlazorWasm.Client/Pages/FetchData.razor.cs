@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorWasm.Client.Pages
 {
+  //[Authorize]
   // [Authorize(Roles="admin")]
   [Authorize(Policy=Policies.RoleAndCountry)]
   public partial class FetchData

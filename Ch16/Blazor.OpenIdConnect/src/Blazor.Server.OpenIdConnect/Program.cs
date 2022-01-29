@@ -1,4 +1,5 @@
 using Blazor.Server.OpenIdConnect.Data;
+using Blazor.Shared.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -22,11 +23,17 @@ builder.Services.AddAuthentication(options =>
 .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
 {
   options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+  options.SignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
   options.Authority = "https://localhost:5011";
   options.ClientId = "BlazorServer";
   options.ClientSecret = "u2u-secret";
+
   // When set to code, the middleware will use PKCE protection
   options.ResponseType = "code id_token";
+
+  // Save the tokens we receive from the IDP
+  options.SaveTokens = true;
+
   // It's recommended to always get claims from the
   // UserInfoEndpoint during the flow.
   options.GetClaimsFromUserInfoEndpoint = true;
@@ -43,6 +50,31 @@ builder.Services.AddAuthentication(options =>
   {
     RoleClaimType = "role"
   };
+
+  options.Scope.Add("u2uApi");
+
+  options.Scope.Add("country");
+  options.ClaimActions.MapUniqueJsonKey("country", "country");
+});
+
+// Handling the access token
+builder.Services.AddAccessTokenManagement();
+builder.Services.AddUserAccessTokenHttpClient(nameof(WeatherForecastService), null, 
+  client =>
+  {
+    client.BaseAddress = new Uri("https://localhost:5005");
+  });
+
+// Policies
+builder.Services.AddAuthorization(options =>
+{
+  // Using the shared policy from project Blazor.Shared.OpenIdConnect
+  options.AddPolicy(Policies.FromBelgium, Policies.FromBelgiumPolicy());
+  //options.AddPolicy("FromBelgium", policyBuilder =>
+  //{
+  //  policyBuilder.RequireAuthenticatedUser();
+  //  policyBuilder.RequireClaim("country", "Belgium");
+  //});
 });
 
 var app = builder.Build();

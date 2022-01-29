@@ -2,19 +2,16 @@ namespace Blazor.Server.OpenIdConnect.Data
 {
   public class WeatherForecastService
   {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+    private readonly IHttpClientFactory httpClientFactory;
+    public WeatherForecastService(IHttpClientFactory httpClientFactory)
+    => this.httpClientFactory = httpClientFactory;
 
-    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    public async ValueTask<WeatherForecast[]> GetForecastAsync(DateTime startDate)
     {
-      return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
-      {
-        Date = startDate.AddDays(index),
-        TemperatureC = Random.Shared.Next(-20, 55),
-        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-      }).ToArray());
+      HttpClient httpClient = this.httpClientFactory.CreateClient(nameof(WeatherForecastService));
+      WeatherForecast[]? result = await httpClient.GetFromJsonAsync<WeatherForecast[]>("weatherforecast");
+      // Return empty array instead of null
+      return result ?? Array.Empty<WeatherForecast>();
     }
   }
 }

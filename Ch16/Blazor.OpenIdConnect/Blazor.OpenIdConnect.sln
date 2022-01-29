@@ -7,7 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61F1ADBB-C7A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityProvider", "src\IdentityProvider\IdentityProvider.csproj", "{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Server.OpenIdConnect", "src\Blazor.Server.OpenIdConnect\Blazor.Server.OpenIdConnect.csproj", "{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Server.OpenIdConnect", "src\Blazor.Server.OpenIdConnect\Blazor.Server.OpenIdConnect.csproj", "{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherServices", "src\WeatherServices\WeatherServices.csproj", "{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9406CBCD-0CCC-4DC9-B231-C07990CE77EE}"
+	ProjectSection(SolutionItems) = preProject
+		Remarks.md = Remarks.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Shared.OpenIdConnect", "src\Blazor.Shared.OpenIdConnect\Blazor.Shared.OpenIdConnect.csproj", "{F7E2945A-5079-4FBF-9769-7774B443F925}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +32,14 @@ Global
 		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E2945A-5079-4FBF-9769-7774B443F925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E2945A-5079-4FBF-9769-7774B443F925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E2945A-5079-4FBF-9769-7774B443F925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E2945A-5079-4FBF-9769-7774B443F925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +47,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8DF2E54F-F0F3-45F6-BA93-DC3D37F6EFBC} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
 		{ADC9A8FF-D1C3-48AE-B3E5-70A394EAE02B} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
+		{5FD86F05-B19D-4C76-A7C3-9B47DA8218EF} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
+		{F7E2945A-5079-4FBF-9769-7774B443F925} = {61F1ADBB-C7AC-40FD-B22D-BCD6DD11F0C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC05602D-9485-4C0B-B678-159DFA4DD7FE}

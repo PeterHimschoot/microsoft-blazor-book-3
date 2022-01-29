@@ -2,12 +2,7 @@
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdentityProvider
 {
@@ -28,6 +23,7 @@ namespace IdentityProvider
           new Claim("family_name", "Himschoot"),
           new Claim("address", "Melle"),
           new Claim("role", "admin"),
+          new Claim("country", "Belgium"),
         }
       },
       new TestUser
@@ -42,6 +38,7 @@ namespace IdentityProvider
           new Claim("family_name", "Blazor"),
           new Claim("address", "Zellik"),
           new Claim("role", "tester"),
+          new Claim("country", "France"),
         }
       }
     };
@@ -55,6 +52,9 @@ namespace IdentityProvider
       new IdentityResource(name: "roles",
         displayName: "User role(s)",
         userClaims: new List<string> { "role" }),
+      new IdentityResource(name: "country",
+        displayName: "User country",
+        userClaims: new List<string> { "country" })
     };
 
     public static IEnumerable<Client> GetClients()
@@ -75,7 +75,9 @@ namespace IdentityProvider
           IdentityServerConstants.StandardScopes.OpenId,
           IdentityServerConstants.StandardScopes.Profile,
           IdentityServerConstants.StandardScopes.Address,
-          "roles"
+          "roles",
+          "u2uApi",
+          "country"
         },
         ClientSecrets = { new Secret("u2u-secret".Sha512()) },
         RequireConsent = true,
@@ -83,6 +85,21 @@ namespace IdentityProvider
         {
           "https://localhost:5001/signout-callback-oidc"
         }
+      }
+    };
+
+    public static IEnumerable<ApiScope> GetApiScopes()
+    => new List<ApiScope>
+    {
+      new ApiScope("u2uApi", "U2U API")
+    };
+
+    public static IEnumerable<ApiResource> GetApiResources()
+    => new List<ApiResource>
+    {
+      new ApiResource("u2uApi", "U2U API")
+      {
+        Scopes = { "u2uApi" }, UserClaims = new [] { "country"}
       }
     };
   }
