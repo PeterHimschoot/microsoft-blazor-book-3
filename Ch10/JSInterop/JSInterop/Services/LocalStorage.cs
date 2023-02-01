@@ -12,6 +12,7 @@ namespace JSInterop.Services
     public ValueTask SetProperty<T>(string propName, T value)
     => this.js.InvokeVoidAsync("blazorLocalStorage.set", propName, value);
     public ValueTask WatchAsync<T>(T instance) where T : class
-    => this.js.InvokeVoidAsync("blazorLocalStorage.watch", DotNetObjectReference.Create(instance));
+    => this.js.InvokeVoidAsync("blazorLocalStorage.watch", 
+      DotNetObjectReference.Create(instance));
   }
 }
