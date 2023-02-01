@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluxor" Version="4.1.0" />
-    <PackageReference Include="Fluxor.Blazor.Web" Version="4.1.0" />
-    <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.5.21301.17" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.5.21301.17" PrivateAssets="all" />
+    <PackageReference Include="Fluxor" Version="5.7.0" />
+    <PackageReference Include="Fluxor.Blazor.Web" Version="5.7.0" />
+    <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.13" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

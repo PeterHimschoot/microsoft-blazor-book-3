@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluxor" Version="4.1.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-preview.5.21301.5" />
+    <PackageReference Include="Fluxor" Version="5.7.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
