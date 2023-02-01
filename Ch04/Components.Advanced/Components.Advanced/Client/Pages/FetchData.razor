@@ -33,13 +33,13 @@ else
     </Footer>
   </Grid>
 
-  @*<ListView Items="forecasts">
+  <ListView Items="forecasts">
     <ItemTemplate>
       @forecastTemplate(context)
     </ItemTemplate>
-  </ListView>*@
+  </ListView>
 
-  @*<ListView2 Items="forecasts">
+  <ListView2 Items="forecasts">
     <ListTemplate Context="innerTemplate">
       <ol>
         @innerTemplate
@@ -48,9 +48,9 @@ else
     <ItemTemplate Context="forecast">
       <li>@forecast.Summary</li>
     </ItemTemplate>
-  </ListView2>*@
+  </ListView2>
 
-  @*    <table class="table">
+      <table class="table">
     <thead>
     <tr>
     <th>Date</th>
@@ -70,7 +70,7 @@ else
     </tr>
     }
     </tbody>
-    </table>*@
+    </table>
 }
 
 @code {
