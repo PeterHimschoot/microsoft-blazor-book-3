@@ -1,3 +1,5 @@
+using System;
+
 namespace HostedWASM.Shared;
 
 public class WeatherForecast

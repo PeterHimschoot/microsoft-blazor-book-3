@@ -1,4 +1,6 @@
 
+using System;
+
 namespace HostedBlazorWASM.Shared;
 public class WeatherForecast
 {
