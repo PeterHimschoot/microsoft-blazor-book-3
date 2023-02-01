@@ -4,16 +4,16 @@
 
 <h1>Hello, world!</h1>
 
-@*<Alert Show="@ShowAlert">
+<Alert Show="@ShowAlert">
   <span class="oi oi-check mr-2" aria-hidden="true"></span>
   <strong>Blazor is so cool!</strong>
-  </Alert>*@
+</Alert>
 
-@*<DismissableAlert Show="@ShowAlert">
+<DismissableAlert Show="@ShowAlert">
   <span class="oi oi-check mr-2" aria-hidden="true"></span>
   <strong>Blazor is so cool!</strong>
-  </DismissableAlert>
-*@
+</DismissableAlert>
+
 
 <DismissibleAlert @bind-Show="ShowAlert" @ref="alert">
   <span class="oi oi-check mr-2" aria-hidden="true"></span>
@@ -34,6 +34,9 @@
 
 <LifeCycle Counter="@counter" />
 
+<MyInput maxlength="100" placeholder="Placeholder"
+         required="true" Size="100" contextmenu="5"></MyInput>
+
 <button class="btn btn-primary" @onclick="Increment">Increment</button>
 
 @code {
@@ -41,9 +44,11 @@
 
   public void ToggleAlert()
   {
-    //Console.WriteLine("*** Toggle ***");
+    Console.WriteLine("*** Toggle ***");
     ShowAlert = !ShowAlert;
-    // StateHasChanged();
+    StateHasChanged();
+
+    //alert.Dismiss();
   }
 
   private DismissibleAlert alert = default!;

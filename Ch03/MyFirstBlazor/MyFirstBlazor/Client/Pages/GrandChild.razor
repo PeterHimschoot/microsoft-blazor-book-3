@@ -3,7 +3,7 @@
 <button @onclick="Increment" class="btn btn-success">Inc</button>
 
 @code {
-  [CascadingParameter()]
+  [CascadingParameter]
   public CounterData gmData { get; set; } = default!;
 
   private void Increment()
