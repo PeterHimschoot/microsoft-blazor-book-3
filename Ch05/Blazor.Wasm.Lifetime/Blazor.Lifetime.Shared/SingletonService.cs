@@ -6,6 +6,7 @@ namespace Blazor.LifeTime.Shared
   {
     public Guid Guid { get; set; } = Guid.NewGuid();
 
-    public void Dispose() => Console.WriteLine("SingletonService Disposed");
+    public void Dispose() 
+    => Console.WriteLine("SingletonService Disposed");
   }
 }
