@@ -101,8 +101,8 @@ namespace Blazor.IdentityServer.Configuration
               "roles",
               "u2uApi",
               "country"
-           }
-           // RequireConsent = true
+           },
+           RequireConsent = true
         }
     };
 

@@ -3,6 +3,7 @@ using BlazorWasm.Client.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -27,6 +28,8 @@ namespace BlazorWasm.Client.Pages
       if (authState is not null)
       {
         Claims = authState.User.Claims;
+
+        // bool isAdmin = authState.User.FindAll("role").Any(cl => cl.Value == "admin");
       }
 
       message = await InfoService.GetInfo();

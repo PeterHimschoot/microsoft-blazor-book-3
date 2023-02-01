@@ -24,6 +24,7 @@ namespace Blazor.WebAPI.Controllers
       this._logger = logger;
     }
 
+    //[Authorize()]
     //[Authorize(Roles = "admin")]
     [Authorize(Policy = Policies.RoleAndCountry)]
     [HttpGet]

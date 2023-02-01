@@ -18,8 +18,9 @@ namespace WeatherServices.Controllers
     public WeatherForecastController(ILogger<WeatherForecastController> logger) => this._logger = logger;
 
     [HttpGet(Name = "GetWeatherForecast")]
-    //[Authorize]
-    [Authorize(Policy = Policies.FromBelgium)]
+    [Authorize()]
+    //[Authorize(Policy = Policies.FromBelgium)]
+    //[Authorize(Require)]
     public IEnumerable<WeatherForecast> Get() => Enumerable.Range(1, 5).Select(index => new WeatherForecast
     {
       Date = DateTime.Now.AddDays(index),

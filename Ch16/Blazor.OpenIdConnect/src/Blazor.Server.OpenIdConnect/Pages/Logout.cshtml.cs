@@ -12,7 +12,8 @@ namespace Blazor.Server.OpenIdConnect.Pages
     {
       // just to remove compiler warning
       await Task.CompletedTask;
-      return SignOut(OpenIdConnectDefaults.AuthenticationScheme, CookieAuthenticationDefaults.AuthenticationScheme);
+      return SignOut(OpenIdConnectDefaults.AuthenticationScheme,
+                     CookieAuthenticationDefaults.AuthenticationScheme);
     }
   }
 }

@@ -20,6 +20,7 @@ namespace Blazor.Server.OpenIdConnect.Pages
       if (authState is not null)
       {
         Claims = authState.User.Claims;
+
         Claim? givenNameClaim = authState.User.FindFirst("given_name");
         if (givenNameClaim is not null)
         {
